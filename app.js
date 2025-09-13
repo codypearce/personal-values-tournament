@@ -566,8 +566,8 @@ function takeScreenshot() {
 // Copy values as text
 function copyAsText() {
     const text = `${gameState.userName}'s Core Values\n\n` + 
-                 gameState.currentValues.map((value, i) => 
-                     `${i+1}. ${value.name.toUpperCase()}\n   ${value.description}`
+                 gameState.currentValues.map((value) => 
+                     `• ${value.name.toUpperCase()}\n  ${value.description}`
                  ).join('\n\n') +
                  `\n\nGenerated on ${new Date().toLocaleDateString()} | Personal Values Tournament`;
     
