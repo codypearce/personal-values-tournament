@@ -289,9 +289,13 @@ body {
 }
 
 .reset-section {
-    display: flex;
+    display: none; /* Hide the entire reset section by default */
     justify-content: center;
     gap: 15px;
+}
+
+.reset-section.admin-mode {
+    display: flex; /* Show for admin users */
 }
 
 .reset-button {

@@ -114,7 +114,8 @@ let gameState = {
     maxBothCount: 0,
     pairs: [],
     roundProgress: 0,
-    totalPairs: 0
+    totalPairs: 0,
+    isAdmin: false
 };
 
 // Debounce flag
@@ -179,6 +180,16 @@ function startGame() {
     }
     
     gameState.userName = name;
+    gameState.isAdmin = (name === '1842');
+    
+    // Show/hide admin buttons based on admin status
+    const resetSection = document.querySelector('.reset-section');
+    if (gameState.isAdmin) {
+        resetSection.classList.add('admin-mode');
+    } else {
+        resetSection.classList.remove('admin-mode');
+    }
+    
     gameState.currentValues = [...allValues];
     shuffleArray(gameState.currentValues);
     gameState.winners = [];
@@ -391,8 +402,13 @@ function resetGame() {
         maxBothCount: 0,
         pairs: [],
         roundProgress: 0,
-        totalPairs: 0
+        totalPairs: 0,
+        isAdmin: false
     };
+    
+    // Hide admin buttons when resetting
+    const resetSection = document.querySelector('.reset-section');
+    resetSection.classList.remove('admin-mode');
     
     userNameInput.value = '';
     resultsScreen.classList.add('hidden');

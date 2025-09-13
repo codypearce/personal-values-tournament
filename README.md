@@ -28,6 +28,21 @@ There is no way for me to know your final list of values, so answer as honestly 
 
 When you are ready, enter your name below and click Start to begin.
 
+## 🔧 Development
+
+### Cache Busting for GitHub Pages
+
+To ensure users always get the latest CSS and JavaScript files when you deploy updates:
+
+1. **Make your changes** to CSS/JS files
+2. **Run the cache busting script**:
+   ```bash
+   ./update-cache-version.sh
+   ```
+3. **Commit and push** your changes to GitHub
+
+The script automatically updates version numbers in `index.html` to prevent browser caching issues.
+
 ---
 
 ## 🔗 Links
