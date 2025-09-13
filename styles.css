@@ -18,7 +18,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, var(--owu-red) 0%, var(--owu-black) 100%);
+    background: #ffffff;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -42,9 +42,10 @@ body {
 
 .container {
     background: white;
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 40px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border-top: 5px solid var(--owu-red);
 }
 
 /* Start Screen */
@@ -57,19 +58,31 @@ body {
     letter-spacing: -0.5px;
 }
 
+.citation {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.citation p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.citation p:first-child {
+    font-style: italic;
+}
+
 .instructions {
     background: linear-gradient(135deg, rgba(255, 182, 18, 0.1) 0%, rgba(255, 121, 0, 0.05) 100%);
     border: 2px solid var(--owu-gold);
     padding: 30px;
     border-radius: 15px;
     margin-bottom: 30px;
-}
-
-.instructions h2 {
-    color: var(--owu-black);
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
 }
 
 .instructions p {
@@ -130,7 +143,7 @@ body {
 }
 
 .progress-bar {
-    height: 8px;
+    height: 20px;
     background: #e0e0e0;
     border-radius: 10px;
     overflow: hidden;
@@ -192,6 +205,12 @@ body {
     transform: scale(1.05);
 }
 
+.both-button-selected {
+    filter: brightness(0.85);
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 148, 179, 0.2);
+}
+
 .card-transition {
     opacity: 0.3;
     pointer-events: none;
@@ -232,7 +251,7 @@ body {
 }
 
 .both-button {
-    background: linear-gradient(135deg, var(--owu-orange) 0%, var(--owu-gold) 100%);
+    background: var(--owu-red);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -240,15 +259,21 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
 .both-button:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 121, 0, 0.4);
-    background: linear-gradient(135deg, var(--owu-gold) 0%, var(--owu-orange) 100%);
+    box-shadow: 0 10px 30px rgba(167, 25, 48, 0.3);
+    background: var(--owu-bright-red);
+}
+
+.both-button:active:not(:disabled) {
+    transform: translateY(0);
+    filter: brightness(0.85);
+    box-shadow: 0 5px 15px rgba(167, 25, 48, 0.2);
 }
 
 .both-button:disabled {
@@ -266,6 +291,7 @@ body {
 .reset-section {
     display: flex;
     justify-content: center;
+    gap: 15px;
 }
 
 .reset-button {
@@ -284,6 +310,23 @@ body {
     border-color: var(--owu-bright-red);
     color: var(--owu-bright-red);
     background: rgba(213, 43, 30, 0.1);
+}
+
+.skip-button {
+    background: var(--owu-purple);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.skip-button:hover {
+    background: var(--owu-gold);
+    transform: translateY(-2px);
 }
 
 /* Results Screen */
@@ -311,35 +354,35 @@ body {
 }
 
 .value-item {
-    background: linear-gradient(135deg, var(--owu-red) 0%, var(--owu-black) 100%);
-    color: white;
+    background: white;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(167, 25, 48, 0.3);
-    border: 2px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--owu-green);
     transition: all 0.3s ease;
 }
 
 .value-item:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(167, 25, 48, 0.4);
-    border-color: var(--owu-gold);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--owu-blue);
 }
 
 .value-name {
     font-size: 1.2rem;
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: var(--owu-black);
 }
 
 .value-desc {
     font-size: 0.95rem;
     font-weight: 400;
-    opacity: 0.95;
     font-style: italic;
+    color: #666;
 }
 
 #restartButton {
@@ -360,9 +403,39 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .cards-container {
+        gap: 25px;
+    }
+    
+    .card {
+        width: 280px;
+        padding: 30px 25px;
+    }
+}
+
+@media (max-width: 850px) {
+    .cards-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 450px;
+        padding: 30px 25px;
+    }
+    
+    .vs-separator {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 20px;
+        border-radius: 8px;
     }
     
     #startScreen h1 {
@@ -371,15 +444,96 @@ body {
     
     .cards-container {
         flex-direction: column;
+        gap: 20px;
     }
     
     .card {
         width: 100%;
-        max-width: 350px;
+        max-width: 400px;
+        min-height: 150px;
+        padding: 25px 20px;
     }
     
     .vs-separator {
-        transform: rotate(90deg);
-        margin: 20px 0;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+    
+    .card-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .value-description {
+        font-size: 1rem;
+    }
+    
+    .both-button {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .action-buttons {
+        padding: 0 20px;
+    }
+    
+    .reset-section {
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+    
+    .reset-button, .skip-button {
+        flex: 1;
+        min-width: 140px;
+    }
+    
+    .values-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #startScreen h1 {
+        font-size: 1.75rem;
+    }
+    
+    .instructions {
+        padding: 20px;
+    }
+    
+    .instructions h2 {
+        font-size: 1.25rem;
+    }
+    
+    .instructions p {
+        font-size: 0.95rem;
+    }
+    
+    .card {
+        min-height: 140px;
+        padding: 20px 15px;
+    }
+    
+    .card-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    
+    .value-description {
+        font-size: 0.95rem;
+    }
+    
+    .both-button {
+        font-size: 1rem;
+        padding: 12px 25px;
+    }
+    
+    .values-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .value-item {
+        width: 100%;
     }
 }

@@ -134,13 +134,12 @@ const description1 = document.getElementById('description1');
 const description2 = document.getElementById('description2');
 const bothButton = document.getElementById('bothButton');
 const bothButtonCount = document.getElementById('bothButtonCount');
-const bothCountDisplay = document.getElementById('bothCount');
-const roundProgressDisplay = document.getElementById('roundProgress');
 const progressFill = document.getElementById('progressFill');
 const resultName = document.getElementById('resultName');
 const valuesList = document.getElementById('valuesList');
 const restartButton = document.getElementById('restartButton');
 const resetButtonGame = document.getElementById('resetButtonGame');
+const skipToEndButton = document.getElementById('skipToEndButton');
 
 // Initialize
 function init() {
@@ -160,6 +159,7 @@ function attachEventListeners() {
             resetGame();
         }
     });
+    skipToEndButton.addEventListener('click', skipToEnd);
 }
 
 // Start game
@@ -284,9 +284,10 @@ function selectBoth() {
     
     const pair = gameState.pairs[gameState.currentPairIndex];
     
-    // Visual feedback - highlight both cards
+    // Visual feedback - highlight both cards and button
     card1.classList.add('card-selected');
     card2.classList.add('card-selected');
+    bothButton.classList.add('both-button-selected');
     
     // Store both selections
     gameState.winners.push(pair[0]);
@@ -298,6 +299,7 @@ function selectBoth() {
     setTimeout(() => {
         card1.classList.remove('card-selected');
         card2.classList.remove('card-selected');
+        bothButton.classList.remove('both-button-selected');
         showNextPair();
     }, 450);
 }
@@ -327,9 +329,7 @@ function endRound() {
 
 // Update display
 function updateDisplay() {
-    bothCountDisplay.textContent = `Both remaining: ${gameState.bothCount}`;
-    bothButtonCount.textContent = `(${gameState.bothCount})`;
-    roundProgressDisplay.textContent = `${gameState.roundProgress}/${gameState.totalPairs}`;
+    bothButtonCount.textContent = gameState.bothCount;
     
     // Update progress bar
     const progress = (gameState.roundProgress / gameState.totalPairs) * 100;
@@ -438,6 +438,21 @@ function loadGameState() {
             showResults();
         }
     }
+}
+
+// Skip to end for testing
+function skipToEnd() {
+    // Get 10 random values for testing
+    const shuffled = [...allValues];
+    shuffleArray(shuffled);
+    gameState.currentValues = shuffled.slice(0, 10);
+    
+    // Set a test name if none exists
+    if (!gameState.userName) {
+        gameState.userName = "Test User";
+    }
+    
+    showResults();
 }
 
 // Utility function to shuffle array
