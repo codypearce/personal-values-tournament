@@ -140,6 +140,7 @@ const valuesList = document.getElementById('valuesList');
 const restartButton = document.getElementById('restartButton');
 const resetButtonGame = document.getElementById('resetButtonGame');
 const skipToEndButton = document.getElementById('skipToEndButton');
+const screenshotButton = document.getElementById('screenshotButton');
 
 // Initialize
 function init() {
@@ -153,13 +154,18 @@ function attachEventListeners() {
     card1.addEventListener('click', () => selectValue(0));
     card2.addEventListener('click', () => selectValue(1));
     bothButton.addEventListener('click', selectBoth);
-    restartButton.addEventListener('click', resetGame);
+    restartButton.addEventListener('click', () => {
+        if (confirm('Are you sure? You will lose your current values.')) {
+            resetGame();
+        }
+    });
     resetButtonGame.addEventListener('click', () => {
         if (confirm('Are you sure you want to start over? Your progress will be lost.')) {
             resetGame();
         }
     });
     skipToEndButton.addEventListener('click', skipToEnd);
+    screenshotButton.addEventListener('click', takeScreenshot);
 }
 
 // Start game
@@ -453,6 +459,106 @@ function skipToEnd() {
     }
     
     showResults();
+}
+
+// Take screenshot of values
+function takeScreenshot() {
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Calculate height based on number of values
+    const valuesCount = gameState.currentValues.length;
+    const baseHeight = 200; // Header space
+    const valueHeight = 90; // Space per value
+    const footerHeight = 60; // Footer space
+    const totalHeight = baseHeight + (valuesCount * valueHeight) + footerHeight;
+    
+    // Set canvas size
+    canvas.width = 800;
+    canvas.height = totalHeight;
+    
+    // Set background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Add title
+    ctx.fillStyle = '#A71930'; // OWU red
+    ctx.font = 'bold 48px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Your Core Values', canvas.width / 2, 60);
+    
+    // Add name with padding
+    ctx.fillStyle = '#666666';
+    ctx.font = '24px sans-serif';
+    ctx.fillText(`${gameState.userName}'s Core Values`, canvas.width / 2, 100);
+    
+    // Add values with proper spacing
+    let yPosition = 170; // Start position with padding
+    gameState.currentValues.forEach((value, index) => {
+        // White box background (matching the website)
+        ctx.fillStyle = '#ffffff';
+        const boxHeight = 70;
+        const boxWidth = 700;
+        const boxX = (canvas.width - boxWidth) / 2;
+        
+        // Draw white box with shadow effect
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 4;
+        
+        // Create rounded rectangle
+        const radius = 10;
+        ctx.beginPath();
+        ctx.roundRect(boxX, yPosition, boxWidth, boxHeight, radius);
+        ctx.fill();
+        
+        // Reset shadow
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        
+        // Green border (matching website)
+        ctx.strokeStyle = '#B6BF00'; // OWU green
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(boxX, yPosition, boxWidth, boxHeight, radius);
+        ctx.stroke();
+        
+        // Value name
+        ctx.fillStyle = '#1E1E1E'; // OWU black
+        ctx.font = 'bold 18px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(value.name.toUpperCase(), canvas.width / 2, yPosition + 25);
+        
+        // Value description
+        ctx.fillStyle = '#666666';
+        ctx.font = 'italic 14px sans-serif';
+        ctx.fillText(value.description, canvas.width / 2, yPosition + 50);
+        
+        yPosition += valueHeight;
+    });
+    
+    // Add footer with proper spacing
+    ctx.fillStyle = '#999999';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    const currentDate = new Date().toLocaleDateString();
+    ctx.fillText(`Generated on ${currentDate} | Personal Values Tournament`, canvas.width / 2, canvas.height - 20);
+    
+    // Convert to blob and download
+    canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${gameState.userName || 'My'}-Core-Values.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 'image/png');
 }
 
 // Utility function to shuffle array

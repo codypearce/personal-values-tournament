@@ -1,88 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OWU Values Discovery | Find Your Core Values</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Values Tournament | Find Your Core Values</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div id="app">
-        <!-- Start Screen -->
-        <div id="startScreen" class="screen">
-            <div class="container">
-                <h1>Personal Values Tournament</h1>
-                <div class="citation">
-                    <p>Adapted from an activity by:</p>
-                    <p>W.R. Miller, J. C'de Baca, D.B. Matthews, P.L. Wilbourne<br>
-                    University of New Mexico Dept. of Psychology</p>
-                </div>
-                <div class="instructions">
-                    <p>This activity is designed to help you identify the 8 to 10 values that are most important to you. On each screen, you will be shown two values, along with definitions for those values. Simply click the value that is most important to you.</p>
-                    <p>If you can't decide within a few seconds, click the "Both" option. Be careful, you can only click this option a limited number of times on each round, as indicated by the number next to the button. Your progress through the round will be denoted by a progress bar, and when you reach the end of the round, the number of times you can click the "Both" option will change.</p>
-                    <p>When you are finished, a list of your top values will be displayed. Take a screenshot or write down these values; they may be useful to you in later reflections.</p>
-                    <p>There is no way for me to know your final list of values, so answer as honestly as possible.</p>
-                    <p><strong>When you are ready, enter your name below and click Start to begin.</strong></p>
-                </div>
-                <div class="start-form">
-                    <input type="text" id="userName" placeholder="Enter your name" required>
-                    <button id="startButton" class="primary-button">Start</button>
-                </div>
-            </div>
+      <!-- Start Screen -->
+      <div id="startScreen" class="screen">
+        <div class="container">
+          <h1>Personal Values Tournament</h1>
+          <div class="citation">
+            <p>Adapted from an activity by:</p>
+            <p>
+              W.R. Miller, J. C'de Baca, D.B. Matthews, P.L. Wilbourne<br />
+              University of New Mexico Dept. of Psychology
+            </p>
+          </div>
+          <div class="instructions">
+            <p>
+              This activity is designed to help you identify the 8 to 10 values
+              that are most important to you. On each screen, you will be shown
+              two values, along with definitions for those values. Simply click
+              the value that is most important to you.
+            </p>
+            <p>
+              If you can't decide within a few seconds, click the "Both" option.
+              Be careful, you can only click this option a limited number of
+              times on each round, as indicated by the number in the button.
+              Your progress through the round will be denoted by a progress bar,
+              and when you reach the end of the round, the number of times you
+              can click the "Both" option will change.
+            </p>
+            <p>
+              When you are finished, a list of your top values will be
+              displayed. Take a screenshot or write down these values; they may
+              be useful to you in later reflections.
+            </p>
+            <p>
+              There is no way for me to know your final list of values, so
+              answer as honestly as possible.
+            </p>
+            <p>
+              <strong
+                >When you are ready, enter your name below and click Start to
+                begin.</strong
+              >
+            </p>
+          </div>
+          <div class="start-form">
+            <input
+              type="text"
+              id="userName"
+              placeholder="Enter your name"
+              required
+            />
+            <button id="startButton" class="primary-button">Start</button>
+          </div>
         </div>
+      </div>
 
-        <!-- Evaluation Screen -->
-        <div id="evaluationScreen" class="screen hidden">
-            <div class="container">
-                <div class="progress-section">
-                    <div class="progress-bar">
-                        <div id="progressFill" class="progress-fill"></div>
-                    </div>
-                </div>
-                
-                <div class="cards-container">
-                    <div class="card" id="card1">
-                        <div class="card-content">
-                            <h3 id="value1"></h3>
-                            <p id="description1" class="value-description"></p>
-                        </div>
-                    </div>
-                    
-                    <div class="vs-separator">VS</div>
-                    
-                    <div class="card" id="card2">
-                        <div class="card-content">
-                            <h3 id="value2"></h3>
-                            <p id="description2" class="value-description"></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button id="bothButton" class="both-button">
-                        Both are important
-                        <span id="bothButtonCount"></span>
-                    </button>
-                </div>
-                
-                <div class="reset-section">
-                    <button id="resetButtonGame" class="reset-button">Start Over</button>
-                    <button id="skipToEndButton" class="skip-button">Skip to End (Testing)</button>
-                </div>
+      <!-- Evaluation Screen -->
+      <div id="evaluationScreen" class="screen hidden">
+        <div class="container">
+          <div class="progress-section">
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
             </div>
-        </div>
+          </div>
 
-        <!-- Results Screen -->
-        <div id="resultsScreen" class="screen hidden">
-            <div class="container">
-                <h1>Your Core Values</h1>
-                <p id="resultName" class="result-name"></p>
-                <div id="valuesList" class="values-list"></div>
-                <button id="restartButton" class="primary-button">Start New Tournament</button>
+          <div class="cards-container">
+            <div class="card" id="card1">
+              <div class="card-content">
+                <h3 id="value1"></h3>
+                <p id="description1" class="value-description"></p>
+              </div>
             </div>
+
+            <div class="vs-separator">VS</div>
+
+            <div class="card" id="card2">
+              <div class="card-content">
+                <h3 id="value2"></h3>
+                <p id="description2" class="value-description"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button id="bothButton" class="both-button">
+              Both are important
+              <span id="bothButtonCount"></span>
+            </button>
+          </div>
+
+          <div class="reset-section">
+            <button id="resetButtonGame" class="reset-button">
+              Start Over
+            </button>
+            <button id="skipToEndButton" class="skip-button">
+              Skip to End (Testing)
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div id="resultsScreen" class="screen hidden">
+        <div class="container">
+          <h1>Your Core Values</h1>
+          <p id="resultName" class="result-name"></p>
+          <div id="valuesList" class="values-list"></div>
+          <div class="results-actions">
+            <button id="screenshotButton" class="screenshot-button">
+              SAVE AS IMAGE
+            </button>
+            <button id="restartButton" class="restart-button">
+              START NEW TOURNAMENT
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
