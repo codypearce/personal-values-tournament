@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Tournament</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen">
+            <div class="container">
+                <h1>Value Tournament</h1>
+                <div class="instructions">
+                    <h2>How it works:</h2>
+                    <p>You'll be presented with pairs of values and asked to choose which is more important to you.</p>
+                    <p>Through a series of rounds, we'll narrow down from 100 values to your top 8-10 most important values.</p>
+                    <p>In each round, you can select one value, the other, or both if they're equally important.</p>
+                    <p>You'll have a limited number of "both" selections per round (10% of the values).</p>
+                </div>
+                <div class="start-form">
+                    <input type="text" id="userName" placeholder="Enter your name" required>
+                    <button id="startButton" class="primary-button">Start Tournament</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Screen -->
+        <div id="evaluationScreen" class="screen hidden">
+            <div class="container">
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="stats">
+                        <span id="roundProgress">0/0</span>
+                        <span id="bothCount">Both remaining: 0</span>
+                    </div>
+                </div>
+                
+                <div class="cards-container">
+                    <div class="card" id="card1">
+                        <div class="card-content">
+                            <h3 id="value1"></h3>
+                            <p id="description1" class="value-description"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="vs-separator">VS</div>
+                    
+                    <div class="card" id="card2">
+                        <div class="card-content">
+                            <h3 id="value2"></h3>
+                            <p id="description2" class="value-description"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="bothButton" class="both-button">
+                        Both are equally important
+                        <span id="bothButtonCount"></span>
+                    </button>
+                </div>
+                
+                <div class="reset-section">
+                    <button id="resetButtonGame" class="reset-button">Start Over</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen hidden">
+            <div class="container">
+                <h1>Your Core Values</h1>
+                <p id="resultName" class="result-name"></p>
+                <div id="valuesList" class="values-list"></div>
+                <button id="restartButton" class="primary-button">Start New Tournament</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
