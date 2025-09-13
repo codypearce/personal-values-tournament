@@ -377,10 +377,19 @@ function showResults() {
         valuesList.appendChild(valueItem);
     });
     
+    // Show admin buttons if admin user
+    const resetSection = document.querySelector('.reset-section');
+    if (gameState.isAdmin) {
+        resetSection.classList.add('admin-mode');
+    } else {
+        resetSection.classList.remove('admin-mode');
+    }
+    
     // Save completed state separately
     localStorage.setItem('valueTournamentCompleted', JSON.stringify({
         userName: gameState.userName,
-        finalValues: gameState.currentValues
+        finalValues: gameState.currentValues,
+        isAdmin: gameState.isAdmin
     }));
     
     // Clear the in-progress game state
@@ -432,6 +441,7 @@ function loadGameState() {
             const completedData = JSON.parse(localStorage.getItem('valueTournamentCompleted'));
             gameState.userName = completedData.userName;
             gameState.currentValues = completedData.finalValues;
+            gameState.isAdmin = completedData.isAdmin || (completedData.userName === '1842');
             showResults();
         } else if (gameState.currentValues.length > 0 && gameState.pairs.length > 0) {
             // Resume game in progress
@@ -450,6 +460,12 @@ function loadGameState() {
             // Reset transition flag
             isTransitioning = false;
             
+            // Restore admin buttons if admin
+            const resetSection = document.querySelector('.reset-section');
+            if (gameState.isAdmin) {
+                resetSection.classList.add('admin-mode');
+            }
+            
             updateDisplay();
         }
     } else {
@@ -459,6 +475,7 @@ function loadGameState() {
             const data = JSON.parse(completedData);
             gameState.userName = data.userName;
             gameState.currentValues = data.finalValues;
+            gameState.isAdmin = data.isAdmin || (data.userName === '1842');
             showResults();
         }
     }
