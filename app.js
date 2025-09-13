@@ -141,6 +141,7 @@ const restartButton = document.getElementById('restartButton');
 const resetButtonGame = document.getElementById('resetButtonGame');
 const skipToEndButton = document.getElementById('skipToEndButton');
 const screenshotButton = document.getElementById('screenshotButton');
+const copyTextButton = document.getElementById('copyTextButton');
 
 // Initialize
 function init() {
@@ -166,6 +167,7 @@ function attachEventListeners() {
     });
     skipToEndButton.addEventListener('click', skipToEnd);
     screenshotButton.addEventListener('click', takeScreenshot);
+    copyTextButton.addEventListener('click', copyAsText);
 }
 
 // Start game
@@ -559,6 +561,30 @@ function takeScreenshot() {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }, 'image/png');
+}
+
+// Copy values as text
+function copyAsText() {
+    const text = `${gameState.userName}'s Core Values\n\n` + 
+                 gameState.currentValues.map((value, i) => 
+                     `${i+1}. ${value.name.toUpperCase()}\n   ${value.description}`
+                 ).join('\n\n') +
+                 `\n\nGenerated on ${new Date().toLocaleDateString()} | Personal Values Tournament`;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        // Show success feedback
+        const originalText = copyTextButton.textContent;
+        copyTextButton.textContent = 'COPIED!';
+        copyTextButton.style.background = 'var(--owu-green)';
+        
+        setTimeout(() => {
+            copyTextButton.textContent = originalText;
+            copyTextButton.style.background = 'var(--owu-red)';
+        }, 2000);
+    }).catch(() => {
+        // Fallback for older browsers
+        alert('Please manually copy your values from the screen above.');
+    });
 }
 
 // Utility function to shuffle array
